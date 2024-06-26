@@ -6,8 +6,7 @@ import { api } from "./axios"
 import CryptoJS from 'crypto-js'
 import { cookies } from "next/headers"
 
-export async function auth(values: z.infer<typeof formSchema>)
-{
+export async function auth(values: z.infer<typeof formSchema>) {
     try {
         await api.post('login', values)
         const plaintext = process.env.APP_KEY

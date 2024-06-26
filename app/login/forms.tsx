@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { auth } from "@/lib/auth"
 import { toast } from "@/components/ui/use-toast"
+import { useRouter } from "next/navigation"
 
 export const formSchema = z.object({
     email: z.string().min(1, {
@@ -21,6 +22,7 @@ export const formSchema = z.object({
 })
 
 export const Forms = () => {
+    const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -35,6 +37,7 @@ export const Forms = () => {
                 title: "Success",
                 description: "You have successfully logged in"
             })
+            router.refresh()
         } else {
             toast({
                 title: "Error",
