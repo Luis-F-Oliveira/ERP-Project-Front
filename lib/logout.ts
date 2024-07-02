@@ -1,11 +1,8 @@
-import { api } from "./axios";
+'use server'
+
+import { cookies } from "next/headers"
 
 export async function logout() {
-    await api.post('logout', null)
-        .then((response) => { 
-            console.log(response.data)
-        })
-        .catch((error) => { 
-            console.log(error.response.data)
-        })
+    cookies().delete('authenticate')
+    return true
 }

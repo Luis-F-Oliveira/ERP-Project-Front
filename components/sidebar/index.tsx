@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react"
 import {
     Tooltip,
@@ -6,13 +8,22 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Card, CardContent } from "../ui/card"
-import { PackageOpen, ShoppingCart, Users } from 'lucide-react'
+import { LogOut, PackageOpen, ShoppingCart, Users } from 'lucide-react'
 import Link from "next/link"
+import { logout } from "@/lib/logout"
+import { useRouter } from "next/navigation"
 
 export const Sidebar = () => {
+    const router = useRouter()
+    const handleLogout = async () => {
+        if (await logout()) {
+            router.refresh()
+        }
+    }
+
     return (
         <Card className="rounded-none pt-5">
-            <CardContent>
+            <CardContent className="h-full relative">
                 <TooltipProvider>
                     <div className="flex flex-col gap-5">
                         <Tooltip>
@@ -47,6 +58,18 @@ export const Sidebar = () => {
                         </Tooltip>
                     </div>
                 </TooltipProvider>
+                <div className="absolute bottom-5">
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <LogOut onClick={handleLogout} className="text-red-500" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Sair</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
             </CardContent>
         </Card>
     )

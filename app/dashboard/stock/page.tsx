@@ -1,7 +1,18 @@
-import React from 'react'
+import { api } from "@/lib/axios"
+import { IStock, columns } from "./columns"
+import { DataTable } from "./data-table"
 
-export default function Page() {
+async function getData(): Promise<IStock[]> {
+  const response = await api.get('stocks')
+  return response.data
+}
+
+export default async function Page() {
+  const data = await getData()
+
   return (
-    <div>Page</div>
+    <div className="container mx-auto py-10">
+      <DataTable columns={columns} data={data} />
+    </div>
   )
 }

@@ -1,3 +1,4 @@
+import { Sidebar } from "@/components/sidebar";
 import { Metadata } from "next"
 import React from "react"
 
@@ -11,7 +12,8 @@ export default function DashboardLayout({
     children: React.ReactNode;
 }) {
     return (
-        <main>
+        <main className="w-screen h-screen flex gap-3">
+            <Sidebar />
             {children}
         </main>
     )
